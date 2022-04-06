@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_database/providers/transection_providers.dart';
 import 'package:provider/provider.dart';
+import 'models/Transection.dart';
 import 'screens/form_screen.dart';
 
 void main() {
@@ -52,24 +53,50 @@ class _MyHomePageState extends State<MyHomePage> {
                     return FormScreen();
                   }));
                 },
-                icon: Icon(Icons.account_box))
+                icon: Icon(Icons.add_circle_outline_rounded))
           ],
         ),
-        body: ListView.builder(
-            itemCount: 4,
-            itemBuilder: (context, int index) {
-              return Card(
-                  elevation: 2,
-                  margin: const EdgeInsets.all(8.0),
-                  child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 30,
-                        child: FittedBox(
-                          child: Text("10000"),
-                        ),
-                      ),
-                      title: Text("llll"),
-                      subtitle: Text("20")));
-            }));
+        body: Consumer(
+          builder: (context, TransectionProviders provider, child) {
+            return ListView.builder(
+                itemCount: provider.transections.length,
+                itemBuilder: (context, int index) {
+                  Transection data = provider.transections[index];
+                  return Card(
+                      elevation: 2,
+                      color: Color.fromARGB(255, 223, 214, 201),
+                      margin: const EdgeInsets.all(8.0),
+                      child: ListTile(
+                          leading: CircleAvatar(
+                            radius: 30,
+                            child: FittedBox(
+                              child: Icon(Icons.account_circle_rounded),
+                            ),
+                          ),
+                          title: Text(
+                            data.fullname,
+                            style: TextStyle(color: Colors.deepOrange),
+                          ),
+                          subtitle: Text(
+                              "ตำแหน่ง ${data.position} | ${data.salary}")));
+                });
+          },
+        ));
+    // body: ListView.builder(
+    //     itemCount: 4,
+    //     itemBuilder: (context, int index) {
+    //       return Card(
+    //           elevation: 2,
+    //           margin: const EdgeInsets.all(8.0),
+    //           child: ListTile(
+    //               leading: CircleAvatar(
+    //                 radius: 30,
+    //                 child: FittedBox(
+    //                   child: Text("10000"),
+    //                 ),
+    //               ),
+    //               title: Text("llll"),
+    //               subtitle: Text("20")));
+    //     }));
   }
 }
