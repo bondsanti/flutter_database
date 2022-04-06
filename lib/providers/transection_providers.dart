@@ -7,12 +7,12 @@ class TransectionProviders with ChangeNotifier {
   List<Transection> transections = [
     Transection(
         fullname: "John snow",
-        position: "Dev Backend",
+        position: "Backend",
         salary: 35000,
         date: DateTime.now()),
     Transection(
         fullname: "Mary son",
-        position: "Dev Frontend",
+        position: "Frontend",
         salary: 25000,
         date: DateTime.now()),
     Transection(
@@ -27,6 +27,8 @@ class TransectionProviders with ChangeNotifier {
   }
 
   addTransection(Transection statement) {
-    transections.add(statement);
+    transections.insert(0, statement);
+    //แจ้งเตือนไปยัง consumer
+    notifyListeners();
   }
 }
